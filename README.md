@@ -47,7 +47,7 @@
 | ----------- | ------ | ----------- |
 | card_number | string | null: false |
 | exp_month   | string | null: false |
-| exp_month   | string | null: false |
+| exp_year   | string | null: false |
 | cvc_number  | string | null: false |
 
 ### Association
