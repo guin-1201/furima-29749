@@ -24,7 +24,7 @@
 | Column                | Type   | Options     |
 | --------------------- | ------ | ----------- |
 | product               | string | null: false |
-| product_description   | text   | null: false |
+| description           | text   | null: false |
 | category_id           | integer | null: false |
 | status_id             | integer | null: false |
 | shipping_charge_class_id | integer | null: false |
@@ -36,7 +36,7 @@
 ### Association
 
 - belongs_to :user
-- has_one :purchases
+- has_one :purchase
 
 
 ## purchases テーブル
@@ -57,7 +57,7 @@
 
 | Column        | Type   | Options     |
 | ------------- | ------ | ----------- |
-| postal_code   | string | null: fals |
+| postal_code   | string | null: false |
 | prefecture_id | integer | null: false |
 | city          | string | null: false |
 | house_number  | string | null: false |
