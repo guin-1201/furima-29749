@@ -11,7 +11,7 @@
 | first_name      | string | null: false |
 | last_name_kana  | string | null: false |
 | first_name_kana | string | null: false |
-| birthday_id     | date | null: false |
+| birthday        | date | null: false |
 
 ### Association
 
@@ -24,27 +24,27 @@
 | Column                | Type   | Options     |
 | --------------------- | ------ | ----------- |
 | product               | string | null: false |
-| product_description   | string | null: false |
-| categories            | integer | null: false |
+| product_description   | text   | null: false |
+| category_id           | integer | null: false |
 | status_id             | integer | null: false |
 | shipping_charge_class_id | integer | null: false |
 | ship_address_id       | integer | null: false |
 | ship_date_class_id    | integer | null: false |
 | price                 | integer | null: false |
-| user_id               | integer | null: false |
+| user_id               | integer | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
-- has_many :purchases
+- has_one :purchases
 
 
 ## purchases テーブル
 
 | Column  | Type   | Options     |
 | ------- | ------ | ----------- |
-| user_id | integer | null: false |
-| item_id | integer | null: false |
+| user_id | integer | null: false, foreign_key: true |
+| item_id | integer | null: false, foreign_key: true |
 
 ### Association
 
@@ -57,13 +57,13 @@
 
 | Column        | Type   | Options     |
 | ------------- | ------ | ----------- |
-| postal_code   | string |  |
+| postal_code   | string | null: fals |
 | prefecture_id | integer | null: false |
 | city          | string | null: false |
 | house_number  | string | null: false |
-| building_name | string | null: false |
+| building_name | string |  |
 | phone         | string | null: false |
-| purchase_id   | integer | null: false |
+| purchase_id   | integer | null: false, foreign_key: true |
 
 ### Association
 
