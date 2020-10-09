@@ -10,8 +10,8 @@ describe User do
         expect(@user).to be_valid
       end
       it "passwordが6文字以上であれば登録できる" do
-        @user.password = "000000"
-        @user.password_confirmation = "000000"
+        @user.password = "a000000"
+        @user.password_confirmation = "a000000"
         expect(@user).to be_valid
       end
     end
@@ -55,6 +55,12 @@ describe User do
         @user.password_confirmation = "00000000"
         @user.valid?
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Passwor")
+      end
+      it "passwordは半角英数字混合でないと登録できない" do
+        @user.password = "aaaaaaaa"
+        @user.password_confirmation = "aaaaaaaa"
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password passwordは英字と数字の両方を含めて設定してください")
       end
       it "passwordが存在してもpassword_confirmationが空では登録できない" do
         @user.password_confirmation = ""
