@@ -1,4 +1,5 @@
 class Item < ApplicationRecord
+  has_one_attached :image
 
   with_options presence: true do
     validates :product
@@ -10,6 +11,7 @@ class Item < ApplicationRecord
     validates :ship_date_class_id, numericality: { other_than: 1 }
     validates :price
   end
+
 
 end
 
