@@ -2,6 +2,7 @@ class Item < ApplicationRecord
   has_one_attached :image
 
   with_options presence: true do
+    validates :images
     validates :product
     validates :description
     validates :category_id, numericality: { other_than: 1 }
