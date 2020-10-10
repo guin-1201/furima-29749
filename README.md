@@ -23,7 +23,7 @@
 
 | Column                | Type   | Options     |
 | --------------------- | ------ | ----------- |
-| product               | string | null: false |
+| product               | string | null: false |  
 | description           | text   | null: false |
 | category_id           | integer | null: false |
 | status_id             | integer | null: false |
@@ -33,7 +33,18 @@
 | price                 | integer | null: false |
 | user_id               | integer | null: false, foreign_key: true |
 
-### Association
+## 商品名
+## 商品説明
+## カテゴリー
+## 商品の状態
+## 発送料の負担
+## 発送元の地域
+## 発送までの日数
+## 価格
+## user_id
+
+
+## Association
 
 - belongs_to :user
 - has_one :purchase
