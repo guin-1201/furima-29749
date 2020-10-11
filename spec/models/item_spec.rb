@@ -10,55 +10,60 @@ RSpec.describe Item, type: :model do
 
     context '出品に失敗したとき' do
 
-      it 'ログインしていないと、出品ページへ移動できない' do
-        @user = ””
-        get new_item_path(@item)
-        expect(response.status).not_to eq 200
-      end
       it 'imageが空だと出品できない' do
         @item.image = nil
         @item.valid?
-        
+        expect(@item.errors.full_messages).to include("Image can't be blank")
       end
       it 'productが空だと出品できない' do
         @item.product = ''
         @item.valid?
+        expect(@item.errors.full_messages).to include("Product can't be blank")
       end
       it 'descriptionが空だと出品できない' do
         @item.description = ''
         @item.valid?
+        expect(@item.errors.full_messages).to include("Description can't be blank")
       end
       it 'category_idが空だと出品できない' do
         @item.category_id = ''
         @item.valid?
+        expect(@item.errors.full_messages).to include("Category can't be blank")
       end
       it 'status_idが空だと出品できない' do
         @item.status_id = ''
         @item.valid?
+        expect(@item.errors.full_messages).to include("Status can't be blank")
       end
       it 'shipping_charge_class_idが空だと出品できない' do
         @item.shipping_charge_class_id = ''
         @item.valid?
+        expect(@item.errors.full_messages).to include("Shipping charge class can't be blank")
       end
       it 'ship_address_idが空だと出品できない' do
         @item.ship_address_id = ''
         @item.valid?
+        expect(@item.errors.full_messages).to include("Ship address can't be blank")
       end
       it 'ship_date_class_idが空だと出品できない' do
         @item.ship_date_class_id = ''
         @item.valid?
+        expect(@item.errors.full_messages).to include("Ship date class can't be blank")
       end
       it 'priceが空だと出品できない' do
         @item.price = ''
         @item.valid?
+        expect(@item.errors.full_messages).to include("Price can't be blank")
       end
       it 'priceが9,999,999円を超過すると保存できないこと' do
         @item.price = 10000000
         @item.valid?
+        expect(@item.errors.full_messages).to include("Price is out of setting range")
       end
       it '販売価格は半角数字でないと保存できない' do
         @item.price = "aaaa"
-        expect(@item).to be_valid?
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is out of setting range")
       end
 
     end
@@ -66,10 +71,7 @@ RSpec.describe Item, type: :model do
 
     context '出品に成功したとき' do
 
-      it 'ログインしているユーザーは、出品ページへ遷移できる' do
-      get new_item_path(@item)
-      expect(response.status).to eq 200
-      end
+
       it 'image,product,description,category_id,status_id,shipping_charge_class_id,ship_address_id,ship_date_class_id,priceが存在すれば出品できる' do
         expect(@item).to be_valid
       end
