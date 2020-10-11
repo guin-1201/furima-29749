@@ -4,7 +4,7 @@ class Item < ApplicationRecord
   has_one_attached :image
 
   with_options presence: true do
-    validates :images
+    validates :image
     validates :product
     validates :description
     validates :category_id, numericality: { other_than: 0 }
@@ -14,7 +14,7 @@ class Item < ApplicationRecord
     validates :ship_date_class_id, numericality: { other_than: 0 }
     validates :price, format: {with: /\A[0-9]+\z/, message: "は半角数字で入力してください"}
   end
-
+  validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, message: "is out of setting range"}
 
 end
 
