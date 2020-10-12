@@ -55,8 +55,13 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Price can't be blank")
       end
-      it 'priceが9,999,999円を超過すると保存できないこと' do
+      it 'priceが9,999,999円を超過すると保存できない' do
         @item.price = 10000000
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is out of setting range")
+      end
+      it 'priceが299円以下だと保存できない' do
+        @item.price = 299
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is out of setting range")
       end
@@ -64,6 +69,31 @@ RSpec.describe Item, type: :model do
         @item.price = "aaaa"
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is out of setting range")
+      end
+      it 'category_idが0だと保存できない' do
+        @item.category_id = '0'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Category must be other than 0")
+      end
+      it 'status_idが0だと保存できない' do
+        @item.status_id = '0'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Status must be other than 0")
+      end
+      it 'shipping_charge_class_idが0だと保存できない' do
+        @item.shipping_charge_class_id = '0'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Shipping charge class must be other than 0")
+      end
+      it 'ship_address_idが0だと保存できない' do
+        @item.ship_address_id = '0'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Ship address must be other than 0")
+      end
+      it 'ship_date_class_idが0だと保存できない' do
+        @item.ship_date_class_id = '0'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Ship date class must be other than 0")
       end
 
     end

@@ -1,6 +1,5 @@
 window.addEventListener('load', function(){
   document.getElementById("item-price").addEventListener('keyup', function(){
-    console.log('OK')
     // 販売価格の入力欄に入力すると動きます
     let amount = document.getElementById("item-price").value;
     // 販売価格の入力欄に入力された値を変数「amount」に代入
