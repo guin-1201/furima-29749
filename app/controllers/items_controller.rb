@@ -26,9 +26,12 @@ class ItemsController < ApplicationController
   end
 
   def update
-    @item.update(item_params)
-    return redirect_to root_path
-
+    if @item.valid?
+      @item.update(item_params)
+    　return redirect_to root_path
+    else
+      render :new
+    end
   end
 
   
