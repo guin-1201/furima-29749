@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   before_action :move_to_index, except: [:index, :show]
+  before_action :set_item, only: [:edit, :show]
 
 
   def index
@@ -22,6 +23,9 @@ class ItemsController < ApplicationController
   end
 
   def show
+  end
+
+  def set_item
     @item = Item.find(params[:id])
   end
 
