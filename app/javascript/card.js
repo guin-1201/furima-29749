@@ -20,11 +20,21 @@ const pay = () => {
     Payjp.createToken(card, (status, response) => {
       if (status == 200) {
         const token = response.id;
-        console.log(token)
       //statusはトークンの作成がうまくなされたかどうかを確認できる、HTTPステータスコードが入る
       //HTTPステータスコードが200のとき、すなわちうまく処理が完了したときだけ、トークンの値を取得
       //responseはそのレスポンスの内容が含まれ、response.idとすることでトークンの値を取得することができる
-      }
+      const renderDom = document.getElementById("charge-form");
+        const tokenObj = `<input value=${token} name='token' type="hidden"> `;
+        renderDom.insertAdjacentHTML("beforeend", tokenObj);
+      //HTMLのinput要素にトークンの値を埋め込み、フォームに追加
+      //valueは実際に送られる値
+      //nameはその値を示すプロパティ名（params[:name]のように取得できるようになる）
+      //type="hidden"と書くことで、フォーム内に追加されたトークンの値を表示しないようにする。type属性の値にhiddenを指定
+      //enderDom.insertAdjacentHTML("beforeend", tokenObj);でフォームの中に作成したinput要素を追加
+      //insertAdjacentHTMLは、指定したHTMLなどを、特定の要素に描画できるメソッド
+      //第一引数には、要素のどこに描画するのかを指定（beforeendは内部の最後の子要素の後に挿入、afterendは要素の直後に挿入、など）
+      //第二引数には描画するHTML自体を渡す。予め変数に描画したいHTMLを代入しておく
+    }
     });
   });
 };
