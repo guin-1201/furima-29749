@@ -9,12 +9,7 @@ class OrdersController < ApplicationController
   def create
     @order = UserItemOrder.new(order_params)
     if @order.valid?
-      Payjp.api_key = "sk_test_***********"  # 自身のPAY.JPテスト秘密鍵を記述しましょう
-      Payjp::Charge.create(
-        # 決済に必要な情報は同様にGemが提供する、Payjp::Charge.createというクラスおよびクラスメソッドを使用する
-        amount: order_params[:price],  # amountには、実際に決済する金額が入る
-        card: order_params[:token],    # cardには、トークン化されたカード情報が入る
-        currency: 'jpy'
+      pay_item
       @order.save
       return redirect_to root_path
     else
@@ -34,6 +29,16 @@ private
     unless user_signed_in?
       return redirect_to new_user_session_path
     end
+  end
+
+  def pay_item
+    Payjp.api_key = "sk_test_***********"  # 自身のPAY.JPテスト秘密鍵を記述しましょう
+    Payjp::Charge.create(
+      # 決済に必要な情報は同様にGemが提供する、Payjp::Charge.createというクラスおよびクラスメソッドを使用する
+      amount: order_params[:price],  # amountには、実際に決済する金額が入る
+      card: order_params[:token],    # cardには、トークン化されたカード情報が入る
+      currency: 'jpy'                # 通貨の種類（日本円）
+    )
   end
 
 end
