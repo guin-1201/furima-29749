@@ -7,6 +7,7 @@ class OrdersController < ApplicationController
   end
 
   def create
+    binding.pry
     @order = UserItemOrder.new(order_params)
     if @order.valid?
       @order.save
@@ -21,7 +22,7 @@ end
 private
 
   def order_params
-    params.require(:user_item_order).permit(:user_id, :item_id, :postal_code, :prefecture_id, :city, :house_number, :building_name, :phone, :purchase_id).merge(user_id: current_user.id, item_id: params[:item_id])
+    params.require(:user_item_order).permit(:user_id, :item_id, :postal_code, :prefecture_id, :city, :house_number, :building_name, :phone, :purchase_id).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
   end
 
   def move_to_index
