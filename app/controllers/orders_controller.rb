@@ -3,11 +3,11 @@ class OrdersController < ApplicationController
 
   def index
     @item = Item.find(params[:item_id])
-    @order = Purchase.new
+    @order = UserItemOrder.new
   end
 
   def create
-    @order = Purchase.new(order_params)
+    @order = UserItemOrder.new(order_params)
     if @order.valid?
       @order.save
       return redirect_to root_path
@@ -20,9 +20,8 @@ end
 
 private
 
-  #途中　アドレステーブルからもひっぱってくる
   def order_params
-    params.require(:purchase).permit(:user_id, :item_id)
+    params.require(:user_item_order).permit(:user_id, :item_id, :postal_code, :prefecture_id, :city, :house_number, :building_name, :phone, :purchase_id).merge(user_id: current_user.id, item_id: params[:item_id])
   end
 
   def move_to_index
