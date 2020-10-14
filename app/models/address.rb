@@ -9,7 +9,8 @@ class Address < ApplicationRecord
     validates :prefecture_id, numericality: { other_than: 0 }
     validates :city
     validates :house_number
-    validates :string
+    PHONE_REGEX = /\A[0-9]+\z/.freeze
+    validates :password, format: { length: { maximum:11 }, with: PHONE_REGEX, message: '半角数字・ハイフンなし・11桁以内で入力してください'}
   end
 
 
