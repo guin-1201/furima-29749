@@ -61,6 +61,12 @@ const pay = () => {
       //apple.removeAttribute("class", "contents")
       //=><div id="apple">りんご</div> が取得できる
 
+      document.getElementById("charge-form").submit();
+      //フォームの情報をサーバーサイドに送信
+      //5行目のe.preventDefault();で通常のRuby on Railsにおけるフォーム送信処理はキャンセルされて
+      //いるため、JavaScript側からフォームの送信処理を行う必要がある
+
+
     });
   });
 };
