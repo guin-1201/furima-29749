@@ -1,8 +1,9 @@
 const pay = () => {
-  Payjp.setPublicKey("pk_test_sk_test_1c4802ede192fe2709076b4d");
+  Payjp.setPublicKey(process.env.PAYJP_PUBLIC_KEY);
   const form = document.getElementById("charge-form");
   form.addEventListener("submit", (e) => {
     e.preventDefault();
+
 
     const formResult = document.getElementById("charge-form");
     //document.getElementById("id名")は、DOMツリーから特定のHTMLの要素を取得するためのメソッド
@@ -11,13 +12,15 @@ const pay = () => {
     //FormDataとは、フォームに入力された値を取得できるオブジェクトのこと
 
     const card = {
-      card_number: formData.get("order[card_number]"),
-      cvc_number: formData.get("order[cvc_number]"),
-      exp_month: formData.get("order[exp_month]"),
-      exp_year: `20${formData.get("order[exp_year]")}`,
+      number: formData.get("user_item_order[card_number]"),
+      cvc: formData.get("user_item_order[cvc_number]"),
+      exp_month: formData.get("user_item_order[exp_month]"),
+      exp_year: `20${formData.get("user_item_order[exp_year]")}`,
     };
+    console.log(card)
 
     Payjp.createToken(card, (status, response) => {
+      console.log(response.error)
     //Payjp.createToken(card, callback)
     //カード情報をPAY.JP側に送りトークン化するためpay.jsが提供するオブジェクト
     //第一引数は先ほど定義したcardオブジェクト
@@ -27,8 +30,8 @@ const pay = () => {
     //const 変数名 = () => {
     //  処理
     //}
-      if (status == 200) {
-        const token = response.id;
+      if (status === 200) {
+        const token = response.id;        
       //statusはトークンの作成がうまくなされたかどうかを確認できる、HTTPステータスコードが入る
       //HTTPステータスコードが200のとき、すなわちうまく処理が完了したときだけ、トークンの値を取得
       //responseはそのレスポンスの内容が含まれ、response.idとすることでトークンの値を取得することができる
@@ -44,6 +47,7 @@ const pay = () => {
       //第一引数には、要素のどこに描画するのかを指定（beforeendは内部の最後の子要素の後に挿入、afterendは要素の直後に挿入、など）
       //第二引数には描画するHTML自体を渡す。予め変数に描画したいHTMLを代入しておく
     }
+
 
     document.getElementById("card-number").removeAttribute("name");
     document.getElementById("card-cvc").removeAttribute("name");
