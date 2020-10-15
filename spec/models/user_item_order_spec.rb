@@ -19,6 +19,11 @@ RSpec.describe UserItemOrder, type: :model do
         expect(@order).to be_valid
       end
 
+      it 'phoneが11桁異以内だと登録できる' do
+        @order.phone = '0312345678'
+        expect(@order).to be_valid
+      end
+
     end
 
 
@@ -61,6 +66,11 @@ RSpec.describe UserItemOrder, type: :model do
         expect(@order.errors.full_messages).to include("Phone 半角数字・ハイフンなし・11桁以内で入力してください")
       end
 
+      it 'phoneが12桁以上だと登録できない' do
+        @order.phone = '03123456789012'
+        @order.valid?
+        expect(@order.errors.full_messages).to include("Phone Phone 半角数字・ハイフンなし・11桁以内で入力してください")
+      end
 
     end
 

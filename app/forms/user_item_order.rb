@@ -9,8 +9,8 @@ class UserItemOrder
     validates :prefecture_id, numericality: { other_than: 0 }
     validates :city
     validates :house_number
-    PHONE_REGEX = /\A[0-9]+\z/.freeze
-    validates :phone, format: { length: { maximum: 11 }, with: PHONE_REGEX, message: '半角数字・ハイフンなし・11桁以内で入力してください'}
+    PHONE_REGEX = /\A\d{0-11}\z/.freeze
+    validates :phone, format: {with: PHONE_REGEX, message: '半角数字・ハイフンなし・11桁以内で入力してください'}
   end
 
 
