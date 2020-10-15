@@ -16,6 +16,7 @@ class OrdersController < ApplicationController
     if @order.valid?
       pay_item
       @order.save
+      #binding.pry
       return redirect_to root_path
     else
       render 'index'

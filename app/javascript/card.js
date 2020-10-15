@@ -20,7 +20,6 @@ const pay = () => {
     console.log(card)
 
     Payjp.createToken(card, (status, response) => {
-      console.log(response.error)
     //Payjp.createToken(card, callback)
     //カード情報をPAY.JP側に送りトークン化するためpay.jsが提供するオブジェクト
     //第一引数は先ほど定義したcardオブジェクト
