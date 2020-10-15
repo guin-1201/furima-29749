@@ -2,14 +2,17 @@ class OrdersController < ApplicationController
   before_action :move_to_index, except: [:index, :show]
 
   def index
-    @item = Item.find(params[:item_id])
-    @order = UserItemOrder.new
+    if user_signed_in? && current_user.id != @item.user.id
+      @item = Item.find(params[:item_id])
+      @order = UserItemOrder.new
+    else
+      eturn redirect_to root_path
+    end
   end
 
   def create
     @order = UserItemOrder.new(order_params)
     @item = Item.find(params[:item_id])
-    binding.pry
     if @order.valid?
       pay_item
       @order.save
