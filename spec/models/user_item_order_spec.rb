@@ -16,7 +16,7 @@ RSpec.describe UserItemOrder, type: :model do
       end
 
       it 'postal_code,prefecture_id,city,house_number,building_name,phoneが存在すれば出品できる' do
-        expect(@address).to be_valid
+        expect(@order).to be_valid
       end
 
     end
@@ -33,32 +33,32 @@ RSpec.describe UserItemOrder, type: :model do
       it 'postal_codeが空だと登録できない' do
         @order.postal_code = ''
         @order.valid?
-        expect(@address.errors.full_messages).to include("Postal code can't be blank")
+        expect(@order.errors.full_messages).to include("Postal code can't be blank")
 
       end
 
       it 'cityが空だと登録できない' do
         @order.city = ''
         @order.valid?
-        expect(@address.errors.full_messages).to include("City can't be blank")
+        expect(@order.errors.full_messages).to include("City can't be blank")
       end
 
       it 'house_numberが空だと登録できない' do
         @order.house_number = ''
         @order.valid?
-        expect(@address.errors.full_messages).to include("House number can't be blank")
+        expect(@order.errors.full_messages).to include("House number can't be blank")
       end
 
       it 'phoneが空だと登録できない' do
         @order.phone = ''
         @order.valid?
-        expect(@address.errors.full_messages).to include("Phone can't be blank")
+        expect(@order.errors.full_messages).to include("Phone can't be blank")
       end
 
       it 'phoneにハイフンが入ると登録できない' do
         @order.phone = 03-1234-5678
         @order.valid?
-        expect(@address.errors.full_messages).to include("Phone 半角数字・ハイフンなし・11桁以内で入力してください")
+        expect(@order.errors.full_messages).to include("Phone 半角数字・ハイフンなし・11桁以内で入力してください")
       end
 
 
