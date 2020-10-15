@@ -2,11 +2,11 @@ class OrdersController < ApplicationController
   before_action :move_to_index, except: [:index, :show]
 
   def index
+    @item = Item.find(params[:item_id])
     if user_signed_in? && current_user.id != @item.user.id
-      @item = Item.find(params[:item_id])
       @order = UserItemOrder.new
     else
-      eturn redirect_to root_path
+      return redirect_to root_path
     end
   end
 
