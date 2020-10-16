@@ -15,6 +15,7 @@ class OrdersController < ApplicationController
     @item = Item.find(params[:item_id])
     if @order.valid?
       pay_item
+      binding.pry
       @order.save
       #binding.pry
       return redirect_to root_path
