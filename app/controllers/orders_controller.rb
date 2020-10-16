@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
   before_action :move_to_index, except: [:index, :show]
 
   def index
-    @item = Item.find(params[:item_id])
+    item_params
     if user_signed_in? && current_user.id != @item.user.id
       @order = UserItemOrder.new
     else
@@ -12,12 +12,10 @@ class OrdersController < ApplicationController
 
   def create
     @order = UserItemOrder.new(order_params)
-    @item = Item.find(params[:item_id])
-    if @order.valid?
+    item_params
+      if @order.valid?
       pay_item
-      binding.pry
       @order.save
-      #binding.pry
       return redirect_to root_path
     else
       render 'index'
@@ -46,6 +44,10 @@ private
       card: params[:token],    # cardには、トークン化されたカード情報が入る
       currency: 'jpy'                # 通貨の種類（日本円）
     )
+  end
+
+  def item_params
+    @item = Item.find(params[:item_id])
   end
 
 end
