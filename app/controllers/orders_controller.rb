@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :move_to_index, except: [:index, :show]
-  before_action :item_params, except: [:index, :show]
+  before_action :item_params
 
   def index
     if user_signed_in? && current_user.id != @item.user.id && @item.purchase.blank?
