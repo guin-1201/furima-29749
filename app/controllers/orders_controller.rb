@@ -1,8 +1,8 @@
 class OrdersController < ApplicationController
   before_action :move_to_index, except: [:index, :show]
+  before_action :item_params, except: [:index, :show]
 
   def index
-    item_params
     if user_signed_in? && current_user.id != @item.user.id && @item.purchase.blank?
       @order = UserItemOrder.new
     else
@@ -12,7 +12,6 @@ class OrdersController < ApplicationController
 
   def create
     @order = UserItemOrder.new(order_params)
-    item_params
       if @order.valid?
       pay_item
       @order.save
