@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
 
   def index
     item_params
-    if user_signed_in? && current_user.id != @item.user.id
+    if user_signed_in? && current_user.id != @item.user.id && @item.purchase.blank?
       @order = UserItemOrder.new
     else
       return redirect_to root_path
