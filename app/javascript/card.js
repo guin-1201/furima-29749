@@ -1,4 +1,6 @@
 const pay = () => {
+  const judge = location.pathname
+  if (judge.includes('cards/new')) {
   Payjp.setPublicKey(process.env.PAYJP_PUBLIC_KEY);
   const form = document.getElementById("charge-form");
   form.addEventListener("submit", (e) => {
@@ -17,6 +19,7 @@ const pay = () => {
       exp_month: formData.get("exp_month"),
       exp_year: `20${formData.get("exp_year")}`,
     };
+    console.log(card)
 
     Payjp.createToken(card, (status, response) => {
       console.log(response)
@@ -30,6 +33,7 @@ const pay = () => {
     //  処理
     //}
       if (status === 200) {
+        console.log(status)
         const token = response.id;        
       //statusはトークンの作成がうまくなされたかどうかを確認できる、HTTPステータスコードが入る
       //HTTPステータスコードが200のとき、すなわちうまく処理が完了したときだけ、トークンの値を取得
@@ -72,7 +76,9 @@ const pay = () => {
     });
   
   });
+  };
 };
+
 
 window.addEventListener("load", pay);
 

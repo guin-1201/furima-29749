@@ -88,6 +88,36 @@
     </div>
     <p class='info-text'>※ 本人情報は正しく入力してください。会員登録後、修正するにはお時間を頂く場合があります。</p>
   </div>
+
+    <div class='credit-card-form'>
+      <h1 class='info-input-haedline'>
+        カード情報
+      </h1>
+      <div class="form-group">
+        <div class='form-text-wrap'>
+          <label class="form-text">カード番号</label>
+        </div>
+        <div class="input-default">
+        <%= "**** **** **** " + @card[:last4] %>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class='form-text-wrap'>
+          <label class="form-text">有効期限</label>
+        </div>
+        <div class='input-expiration-date-wrap'>
+          <div class='input-expiration-date'>
+          <%= @card[:exp_month] %>
+          </div>
+          <p>月</p>
+          <div class='input-expiration-date'>
+          <%= @card[:exp_year] %>
+          </div>
+          <p>年</p>
+        </div>
+      </div>
+    </div>
+
   <div class="form-group">
     <h2 class='form-bottom-text'>
       「会員登録」のボタンを押すことにより、
@@ -103,7 +133,3 @@
 <% end %>
 
 <%= render "shared/second-footer"%>
-
-
-
-
