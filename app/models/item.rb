@@ -8,7 +8,6 @@ class Item < ApplicationRecord
   belongs_to_active_hash :shipping_charge_class
   belongs_to_active_hash :ship_address
   belongs_to_active_hash :ship_date_class
-
   has_one_attached :image
 
   with_options presence: true do

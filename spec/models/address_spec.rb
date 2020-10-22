@@ -19,7 +19,6 @@ describe Address do
       it 'postal_codeが空だと住所登録できない' do
         @address.postal_code = ''
         @address.valid?
-      binding.pry
         expect(@address.errors.full_messages).to include("Purchase must exist")
 
       end
