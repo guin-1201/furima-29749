@@ -1,4 +1,6 @@
 const pay = () => {
+  const judge = location.pathname
+  if (judge.includes('/users')) {
   Payjp.setPublicKey(process.env.PAYJP_PUBLIC_KEY);
   const form = document.getElementById("charge-form");
   form.addEventListener("submit", (e) => {
@@ -12,14 +14,15 @@ const pay = () => {
     //FormDataとは、フォームに入力された値を取得できるオブジェクトのこと
 
     const card = {
-      number: formData.get("user_item_order[card_number]"),
-      cvc: formData.get("user_item_order[cvc_number]"),
-      exp_month: formData.get("user_item_order[exp_month]"),
-      exp_year: `20${formData.get("user_item_order[exp_year]")}`,
+      number: formData.get("card_number"),
+      cvc: formData.get("cvc_number"),
+      exp_month: formData.get("exp_month"),
+      exp_year: `20${formData.get("exp_year")}`,
     };
-    console.log(card)
+    //console.log(card)
 
     Payjp.createToken(card, (status, response) => {
+      console.log(response)
     //Payjp.createToken(card, callback)
     //カード情報をPAY.JP側に送りトークン化するためpay.jsが提供するオブジェクト
     //第一引数は先ほど定義したcardオブジェクト
@@ -30,7 +33,9 @@ const pay = () => {
     //  処理
     //}
       if (status === 200) {
-        const token = response.id;        
+        console.log(status)
+        const token = response.id;
+        //console.log(token)
       //statusはトークンの作成がうまくなされたかどうかを確認できる、HTTPステータスコードが入る
       //HTTPステータスコードが200のとき、すなわちうまく処理が完了したときだけ、トークンの値を取得
       //responseはそのレスポンスの内容が含まれ、response.idとすることでトークンの値を取得することができる
@@ -45,13 +50,12 @@ const pay = () => {
       //insertAdjacentHTMLは、指定したHTMLなどを、特定の要素に描画できるメソッド
       //第一引数には、要素のどこに描画するのかを指定（beforeendは内部の最後の子要素の後に挿入、afterendは要素の直後に挿入、など）
       //第二引数には描画するHTML自体を渡す。予め変数に描画したいHTMLを代入しておく
-    }
 
 
-    document.getElementById("card-number").removeAttribute("name");
-    document.getElementById("card-cvc").removeAttribute("name");
-    document.getElementById("card-exp-month").removeAttribute("name");
-    document.getElementById("card-exp-year").removeAttribute("name");
+      document.getElementById("card-number").removeAttribute("name");
+      document.getElementById("card-cvc").removeAttribute("name");
+      document.getElementById("card-exp-month").removeAttribute("name");
+      document.getElementById("card-exp-year").removeAttribute("name");
     //フォームに存在するクレジットカードの各情報を削除
     //要素.removeAttribute(name, value)
     //nameは属性の名前を文字列で指定
@@ -65,14 +69,17 @@ const pay = () => {
       //=><div id="apple">りんご</div> が取得できる
 
       document.getElementById("charge-form").submit();
+      document.getElementById("charge-form").reset();
       //フォームの情報をサーバーサイドに送信
       //5行目のe.preventDefault();で通常のRuby on Railsにおけるフォーム送信処理はキャンセルされて
       //いるため、JavaScript側からフォームの送信処理を行う必要がある
-
-
+      }
     });
+  
   });
+  };
 };
+
 
 window.addEventListener("load", pay);
 
